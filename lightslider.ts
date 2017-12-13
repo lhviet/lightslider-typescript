@@ -1,6 +1,7 @@
 // porting from https://github.com/sachinchoolur/lightslider to typescript format
 // remember to import jQuery
-declare const $: any;
+// declare const $: any;
+// porting from https://github.com/sachinchoolur/lightslider to typescript format
 
 const defaults = {
   item: 3,
@@ -54,7 +55,7 @@ const defaults = {
   /* jshint ignore:end */
 };
 $.fn.extend({
-  lightSlider: (options) => {
+  lightSlider: function (options) {
     if (this.length === 0) {
       return this;
     }
@@ -152,13 +153,10 @@ $.fn.extend({
       else {
         w = 0;
         for (let i = 0; i < ln; i++) {
-          w += (parseInt($children.eq(i).width(), 10) + settings.slideMargin);
+          // w += (parseInt($children.eq(i).width(), 10) + settings.slideMargin);
+          // Viet - https://github.com/sachinchoolur/lightslider/pull/318
+          w += ($children.eq(i)[0].getBoundingClientRect().width + settings.slideMargin);
         }
-        // below part is custom by Viet
-        // fix issue of missing last slide when autoWidth option is set to be True
-        // http://stackoverflow.com/questions/35591467/customizing-lightslider-slide
-        // the width of holder is mis-calculated, so far I plus more 10px to help it to display correctly
-        w += 5;
       }
       return w;
     };
